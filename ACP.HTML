@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopping List & Random Number App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      #number {
+        font-size: 100px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Shopping List App</h3>
+    <input type="text" id="itemInput" placeholder="Enter shopping item" />
+    <button onclick="addItem()">Add</button>
+    <ul id="shoppingList"></ul>
+
+    <h3>Click on the Number to find your score...</h3>
+    <div id="number" onclick="toggleChange()">0</div>
+
+    <script>
+      // --- Shopping List Functionality ---
+      function addItem() {
+        const input = document.getElementById("itemInput");
+        const list = document.getElementById("shoppingList");
+        const li = document.createElement("li");
+        li.textContent = input.value;
+        list.appendChild(li);
+        input.value = ""; // clear input
+      }
+
+      // --- Random Number Changing Functionality ---
+      const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      let isChanging = false;
+      let intervalId = null;
+
+      function change() {
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        document.getElementById("number").textContent = numbers[randomIndex];
+      }
+
+      function toggleChange() {
+        if (!isChanging) {
+          intervalId = setInterval(change, 100); // every 0.1 second
+          isChanging = true;
+        } else {
+          clearInterval(intervalId);
+          isChanging = false;
+        }
+      }
+
+      // Optional: set a random number when the window loads
+      window.onload = () => {
+        change();
+      };
+    </script>
+  </body>
+</html>
